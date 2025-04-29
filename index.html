@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Interactive Lot Map - 148 Poplar Knoll</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+    body, html { margin: 0; height: 100%; }
+    #map { height: 100%; }
+    .leaflet-popup-content-wrapper { font-size: 14px; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    var map = L.map('map').setView([34.8895, -82.005], 19);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 22,
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    var lotPolygon = L.polygon([
+      [34.88970, -82.00550],
+      [34.88972, -82.00490],
+      [34.88940, -82.00485],
+      [34.88930, -82.00540],
+      [34.88945, -82.00560]
+    ], {
+      color: 'blue',
+      weight: 2,
+      fillOpacity: 0.2
+    }).addTo(map);
+
+    lotPolygon.bindPopup("<strong>148 Poplar Knoll Dr</strong><br>Lot: 1.01 acres");
+
+    var tags = [
+      { lat: 34.88968, lon: -82.00532, label: "Front Garden (azaleas, tulips)" },
+      { lat: 34.88963, lon: -82.00515, label: "Main Entrance & Porch" },
+      { lat: 34.88953, lon: -82.00508, label: "Side tree & trailer parking" },
+      { lat: 34.88958, lon: -82.00545, label: "Rainwater pooling area (erosion)" }
+    ];
+
+    tags.forEach(function(tag) {
+      L.marker([tag.lat, tag.lon]).addTo(map)
+        .bindPopup(tag.label);
+    });
+  </script>
+</body>
+</html>
