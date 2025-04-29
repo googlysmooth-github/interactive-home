@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <style>
-    body, html { margin: 0; height: 100%; }
-    #map { height: 100%; }
+    html, body { height: 100%; margin: 0; padding: 0; }
+    #map { width: 100%; height: 100%; }
     .leaflet-popup-content-wrapper { font-size: 14px; }
   </style>
 </head>
@@ -15,37 +15,26 @@
   <div id="map"></div>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <script>
-    var map = L.map('map').setView([34.8895, -82.005], 19);
+    var map = L.map('map').setView([34.88965, -82.00528], 19);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 22,
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
 
-    var lotPolygon = L.polygon([
-      [34.88970, -82.00550],
-      [34.88972, -82.00490],
-      [34.88940, -82.00485],
-      [34.88930, -82.00540],
-      [34.88945, -82.00560]
-    ], {
+    var lotPolygon = L.polygon([[34.88986, -82.00561], [34.8899, -82.00501], [34.88956, -82.00495], [34.88939, -82.00538], [34.88952, -82.00563]], {
       color: 'blue',
       weight: 2,
       fillOpacity: 0.2
     }).addTo(map);
 
-    lotPolygon.bindPopup("<strong>148 Poplar Knoll Dr</strong><br>Lot: 1.01 acres");
+    lotPolygon.bindPopup("<strong>148 Poplar Knoll Dr</strong><br>Deed-accurate lot boundary");
 
-    var tags = [
-      { lat: 34.88968, lon: -82.00532, label: "Front Garden (azaleas, tulips)" },
-      { lat: 34.88963, lon: -82.00515, label: "Main Entrance & Porch" },
-      { lat: 34.88953, lon: -82.00508, label: "Side tree & trailer parking" },
-      { lat: 34.88958, lon: -82.00545, label: "Rainwater pooling area (erosion)" }
-    ];
+    var tags = [(34.8898, -82.00542, 'Front Garden'), (34.8897, -82.00525, 'Main Entrance'), (34.8896, -82.00515, 'Trailer & Large Tree'), (34.88955, -82.0055, 'Drainage/Erosion Area')];
 
     tags.forEach(function(tag) {
-      L.marker([tag.lat, tag.lon]).addTo(map)
-        .bindPopup(tag.label);
+      L.marker([tag[0], tag[1]]).addTo(map)
+        .bindPopup(tag[2]);
     });
   </script>
 </body>
